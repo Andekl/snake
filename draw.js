@@ -1,12 +1,13 @@
 //Module pattern
-var drawModule (function(){
-  var bodySnake = function(x, y){
+var drawModule = (function () {
+
+  var bodySnake = function(x, y) {
     //This is the single square
     ctx.fillStyle = 'green';
-    ctx.fillRect(x*snakeSize,y*snakeSize,snakeSize,snakeSize);
+    ctx.fillRect(x*snakeSize, y*snakeSize, snakeSize, snakeSize);
     //This is the border of the square
     ctx.strokeStyle = 'darkgreen';
-    ctx.strokeRect(x*snakeSize,y*snakeSize,snakeSize,snakeSize);
+    ctx.strokeRect(x*snakeSize, y*snakeSize, snakeSize, snakeSize);
   }
 
   var pizza = function(x, y){
@@ -32,7 +33,7 @@ var drawModule (function(){
 
     //Using a for loop we push the 5 elements inside the array(squares)
     //Ever elemnt will have x = 0 and the y will take the value of the index.
-    for (var i = length;i >= 0; i--){
+    for (var i = length-1; i >= 0; i--){
       snake.push({x:i,y:0});
     }
   }
@@ -67,7 +68,7 @@ var drawModule (function(){
     }
 
     //Stop the game if the snake touches the border
-    if (snakeX == -1 || snakeX == w / snakeSize || snakeY == -1 || snakeY == h / snakeSize || check_collision(snakeX, snakeY, snake))
+    if (snakeX == -1 || snakeX == w / snakeSize || snakeY == -1 || snakeY == h / snakeSize || checkCollision(snakeX, snakeY, snake))
     {
     btn.removeAttribute('disabled', true);
 
@@ -101,16 +102,11 @@ var drawModule (function(){
 
     //Create food
     pizza(food.x, food.y);
-
-    //Score
     scoreText();
-
-
   }
 
   var createFood = function(){
     food = {
-      //Generate random numbers
       x:Math.floor((Math.random() * 30) + 1),
       y:Math.floor((Math.random() * 30) + 1),
 
